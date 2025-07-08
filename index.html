@@ -1,0 +1,239 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granxy Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <!-- Granxy Store -->
+    </div>
+
+    <div id="welcome-screen">
+        <header>
+            <h1>Welcome</h1>
+        </header>
+        <main>
+            <div class="button-container">
+                <a href="#" id="signup-button" class="auth-button">Sign Up</a>
+                <a href="#" id="login-button" class="auth-button">Login</a>
+                <p class="terms-notice">
+                    By signing up, you agree to our<br>
+                    <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <div id="signup-screen">
+        <h1>Sign up to Granxy App Store</h1>
+        <div class="form-group">
+            <label for="gmail-input">Gmail</label>
+            <input type="email" id="gmail-input" autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label for="password-input">Password</label>
+            <input type="password" id="password-input" autocomplete="new-password">
+        </div>
+        <button id="confirm-button" class="auth-button">Confirm</button>
+    </div>
+
+    <div id="nickname-screen">
+        <h1>What should we call you?</h1>
+        <input type="text" id="nickname-input" placeholder="Enter your name" maxlength="20">
+        <p id="nickname-error"></p>
+        <button id="continue-button" class="auth-button">Confirm</button>
+    </div>
+
+    <div id="home-screen">
+        <header class="search-header">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="🔍 Search">
+                <img src="search_icon.png" alt="Search" id="search-input-icon">
+            </div>
+        </header>
+        <main>
+            <div id="newly-uploaded-apps-section">
+                <h3 class="section-title">Newly Uploaded</h3>
+                <div id="newly-uploaded-grid">
+                    <!-- App cards will be injected here -->
+                </div>
+            </div>
+            <div id="search-results-container"></div>
+            <div id="search-content-box-2">
+                <h3 class="trending-title">Trending</h3>
+                <div class="trending-grid" id="trending-apps-grid">
+                    <!-- Trending app items will be injected here -->
+                </div>
+            </div>
+        </main>
+        <footer>
+            <img src="search_icon.png" alt="Search" class="nav-icon active" id="home-search-nav-icon">
+            <img src="profile_icon.png" alt="Profile" class="nav-icon" id="home-profile-nav-icon">
+        </footer>
+    </div>
+
+    <div id="search-screen">
+        <header class="search-header">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="🔍 Search">
+                <img src="search_icon.png" alt="Search" id="search-input-icon">
+            </div>
+        </header>
+        <main>
+            <div id="newly-uploaded-apps-section">
+                <h3 class="section-title">Newly Uploaded</h3>
+                <div id="newly-uploaded-grid">
+                    <!-- App cards will be injected here -->
+                </div>
+            </div>
+            <div id="search-results-container"></div>
+            <div id="search-content-box-2">
+                <h3 class="trending-title">Trending</h3>
+                <div class="trending-grid" id="trending-apps-grid">
+                    <!-- Trending app items will be injected here -->
+                </div>
+            </div>
+        </main>
+        <footer>
+            <img src="search_icon.png" alt="Search" class="nav-icon active" id="search-search-nav-icon">
+            <img src="profile_icon.png" alt="Profile" class="nav-icon" id="search-profile-nav-icon">
+        </footer>
+    </div>
+
+    <div id="search-results-screen">
+        <header class="profile-header">
+             <img src="back_arrow.png" alt="Back" id="back-from-search-results" class="nav-icon">
+             <h2>Search Results</h2>
+        </header>
+        <main>
+            <div id="final-search-results-container">
+                <!-- Search results will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <div id="profile-screen">
+        <header class="profile-header">
+             <img src="back_arrow.png" alt="Back" id="back-arrow-icon" class="nav-icon">
+        </header>
+        <main>
+            <h2 id="profile-username-display"></h2>
+            <p class="manage-account-text">Manage your account</p>
+            <div class="profile-option-box" id="change-username-box">
+                Change User name
+            </div>
+            <div class="profile-option-box" id="dark-mode-box">
+                Dark mode
+            </div>
+            <div class="profile-option-box" id="stats-box">
+                Stats
+            </div>
+            <div class="profile-option-box" id="logout-button">
+                Log Out
+            </div>
+        </main>
+    </div>
+
+    <div id="change-username-screen">
+        <img src="back_arrow.png" alt="Back" id="back-from-username-change" class="nav-icon">
+        <div class="change-username-container">
+            <input type="text" id="change-username-input" autocomplete="off" spellcheck="false">
+            <span id="username-validation-icon"></span>
+        </div>
+    </div>
+
+    <div id="login-slide-panel">
+        <div id="login-accounts-container">
+            <!-- Account boxes will be inserted here by JS -->
+        </div>
+        <p id="find-account-link">didn't find my account</p>
+    </div>
+
+    <div id="login-confirm-popup">
+        <div class="popup-content">
+            <h2 id="popup-title">Login</h2>
+            <div class="popup-buttons">
+                <button id="cancel-login-button" class="popup-button">Cancel</button>
+                <button id="confirm-login-button" class="popup-button primary">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="manual-login-screen">
+        <h1>Log in</h1>
+        <div class="form-group">
+            <label for="manual-login-user">Gmail or Username</label>
+            <input type="text" id="manual-login-user" autocomplete="username">
+        </div>
+        <div class="form-group">
+            <label for="manual-login-pass">Password</label>
+            <input type="password" id="manual-login-pass" autocomplete="current-password">
+        </div>
+        <button id="manual-login-button" class="auth-button">Log in</button>
+    </div>
+
+    <div id="account-error-screen">
+        <h1>Account_error</h1>
+        <p>please use a valid credentials or this device will no longer use this application</p>
+        <a href="#" id="try-again-link">try again</a>
+    </div>
+
+    <div id="telegram-bot-screen">
+        <header class="profile-header">
+             <img src="back_arrow.png" alt="Back" id="back-from-telegram" class="nav-icon">
+             <h2>Publish an app</h2>
+        </header>
+        <main>
+            <button id="check-messages-button" class="auth-button">Check for /start messages</button>
+            <div id="telegram-log">
+                <p>Click the button to check for new messages.</p>
+            </div>
+        </main>
+    </div>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="banned-screen">
+        <h1>Banned</h1>
+        <p>This account goes against our community standards and has been banned from using this app.</p>
+    </div>
+
+    <div id="app-detail-screen">
+        <header class="app-detail-header">
+            <img src="back_arrow.png" alt="Back" id="back-from-app-detail" class="nav-icon">
+            <div class="app-info-section">
+                <div class="app-detail-icon-circle">
+                    <img id="app-detail-icon" src="" alt="App Icon">
+                </div>
+                <div class="app-detail-text">
+                    <h2 id="app-detail-name">App Name</h2>
+                    <p id="app-detail-author">by Author</p>
+                </div>
+                <button id="get-app-button" class="get-button">
+                    <span>Get</span>
+                    <div class="get-button-progress"></div>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div id="app-description-box" class="app-detail-box">
+                <!-- App description will be injected here -->
+            </div>
+            <div id="app-screenshots-container" class="app-detail-box">
+                <!-- Screenshots will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

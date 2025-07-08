@@ -1,0 +1,1990 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6; /* Welcome page background */
+    overflow: hidden; /* Prevent scrollbars during transitions */
+    color: #2c3e50; /* Default text color */
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode, html.dark-mode {
+    background-color: #1a1a2e; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+}
+
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: powderblue;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.7s ease-out;
+}
+
+#welcome-screen {
+    position: fixed; /* To stack screens */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    padding: 24px;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s;
+}
+
+#welcome-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#welcome-screen header h1 {
+    font-size: clamp(2.5rem, 10vw, 3.5rem); /* Responsive H1 size */
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+body.dark-mode #welcome-screen header h1 {
+    color: #e0e0e0;
+}
+
+#welcome-screen main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.terms-notice {
+    font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+    color: #7f8c8d;
+    text-align: center;
+    margin-top: 16px;
+    line-height: 1.5;
+}
+
+body.dark-mode .terms-notice {
+    color: #a0a0a0;
+}
+
+.terms-notice a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+body.dark-mode .terms-notice a {
+    color: #7ed6df;
+}
+
+.terms-notice a:hover {
+    text-decoration: underline;
+}
+
+#google-signup-button {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-button {
+    display: inline-block; /* Let padding and content define the width */
+    min-width: 180px; /* Ensure a good minimum size for touch targets */
+    box-sizing: border-box;
+    padding: 16px 30px;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    color: #34495e;
+    border: 2px solid #bdc3c7;
+    text-decoration: none;
+    font-size: clamp(1.1rem, 5vw, 1.3rem);
+    font-weight: 600;
+    text-align: center;
+    border-radius: 50px; /* Pill shape for rounded left/right edges */
+    transition: background-color 0.3s, color 0.3s, transform 0.2s, border-color 0.3s;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .auth-button {
+    background-color: #2e2e4e;
+    color: #e0e0e0;
+    border-color: #5d5d81;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.auth-button:last-child {
+    margin-bottom: 0;
+}
+
+.auth-button:hover {
+    background-color: #ecf0f1;
+}
+
+body.dark-mode .auth-button:hover {
+    background-color: #4a4a6e;
+}
+
+.auth-button:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .auth-button:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* New Sign Up Screen Styles */
+#signup-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f7f6;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 55; /* Between welcome and nickname */
+}
+
+body.dark-mode #signup-screen {
+    background-color: #1a1a2e;
+}
+
+#signup-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#signup-screen h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    color: #2c3e50;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+body.dark-mode #signup-screen h1 {
+    color: #e0e0e0;
+}
+
+.form-group {
+    width: 80%;
+    max-width: 350px;
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    display: block;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    color: #34495e; /* 'light black' */
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+body.dark-mode .form-group label {
+    color: #a0a0a0;
+}
+
+.form-group input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #bdc3c7;
+    width: 100%;
+    padding: 10px 0;
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    color: #2c3e50;
+    outline: none;
+    transition: border-color 0.3s, color 0.5s ease;
+}
+
+body.dark-mode .form-group input {
+    border-bottom-color: #5d5d81;
+    color: #e0e0e0;
+}
+
+.form-group input:focus {
+    border-bottom-color: #3498db;
+}
+
+body.dark-mode .form-group input:focus {
+    border-bottom-color: #7ed6df;
+}
+
+#confirm-button {
+    margin-top: 20px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s 0.4s;
+}
+
+#confirm-button.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* New screen for setting nickname */
+#nickname-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontally center children */
+    justify-content: center; /* Vertically center children */
+    background-color: #f4f7f6;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 60; /* Appears on top of the welcome screen */
+}
+
+body.dark-mode #nickname-screen {
+    background-color: #1a1a2e;
+}
+
+#nickname-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#nickname-screen h1 {
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+    color: #2c3e50;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0; /* Adjusted for flexbox centering */
+    margin-bottom: 5vh;
+}
+
+body.dark-mode #nickname-screen h1 {
+    color: #e0e0e0;
+}
+
+#nickname-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #bdc3c7;
+    width: 80%;
+    max-width: 300px;
+    padding: 10px 0;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    text-align: center;
+    color: #2c3e50;
+    outline: none;
+    transition: border-color 0.3s, color 0.5s ease;
+}
+
+body.dark-mode #nickname-input {
+    border-bottom-color: #5d5d81;
+    color: #e0e0e0;
+}
+
+#nickname-input::placeholder {
+    color: #95a5a6;
+    opacity: 0.8;
+}
+
+body.dark-mode #nickname-input::placeholder {
+    color: #a0a0a0;
+}
+
+#nickname-input:focus {
+    border-bottom-color: #3498db;
+}
+
+body.dark-mode #nickname-input:focus {
+    border-bottom-color: #7ed6df;
+}
+
+#continue-button {
+    margin-top: 40px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s 0.4s;
+}
+
+#continue-button.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#nickname-screen #nickname-error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+    height: 1.2em; /* Reserve space to prevent layout shift */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+body.dark-mode #nickname-screen #nickname-error {
+    color: #ff6b6b;
+}
+
+#nickname-screen #nickname-error.visible {
+    opacity: 1;
+}
+
+#nickname-screen #nickname-error.success {
+    color: #2ecc71; /* A nice green color */
+}
+
+body.dark-mode #nickname-screen #nickname-error.success {
+    color: #5cdb95;
+}
+
+#welcome-screen.blurred {
+    filter: blur(5px);
+    transform: scale(1.02); /* Slight zoom to make blur look better */
+    transition: filter 0.4s ease-out, transform 0.4s ease-out;
+}
+
+/* New Home Screen Styles */
+#home-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* White background */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 70;
+}
+
+body.dark-mode #home-screen {
+    background-color: #2e2e4e;
+}
+
+#home-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#home-screen header {
+    text-align: center;
+    padding: 24px 24px 0 24px;
+}
+
+#home-screen h1 {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+    color: #2c3e50;
+    font-weight: 600;
+    margin: 0;
+}
+
+body.dark-mode #home-screen h1 {
+    color: #e0e0e0;
+}
+
+#home-screen main {
+    flex-grow: 1; /* Pushes footer to the bottom */
+}
+
+#home-screen footer {
+    display: flex;
+    justify-content: space-around; /* Space out icons */
+    align-items: center;
+    padding: 16px 24px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    border-top: 1px solid #eaeaea;
+    transition: background-color 0.5s ease, border-top-color 0.5s ease;
+}
+
+body.dark-mode #home-screen footer {
+    background-color: #2e2e4e;
+    border-top-color: #5d5d81;
+}
+
+.nav-icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s, filter 0.5s ease;
+}
+
+body.dark-mode .nav-icon {
+    filter: invert(1); /* Invert color for dark mode icons */
+}
+
+.nav-icon:hover {
+    opacity: 1;
+}
+
+.nav-icon.active {
+    opacity: 1;
+}
+
+/* Profile Screen Styles */
+#profile-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f7f6;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 80; /* Above home screen */
+    padding: 24px;
+}
+
+body.dark-mode #profile-screen {
+    background-color: #1a1a2e;
+}
+
+#profile-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+#profile-screen main {
+    padding-top: 20px;
+}
+
+#profile-username-display {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    color: #2c3e50;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    text-align: left;
+}
+
+body.dark-mode #profile-username-display {
+    color: #e0e0e0;
+}
+
+.manage-account-text {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    color: #7f8c8d;
+    margin: 0 auto 32px auto;
+    text-align: center;
+    width: 100%;
+}
+
+body.dark-mode .manage-account-text {
+    color: #a0a0a0;
+}
+
+.profile-option-box {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 16px;
+    background-color: #fff;
+    border-radius: 12px;
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    color: #34495e;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.5s ease, box-shadow 0.2s;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+}
+
+body.dark-mode .profile-option-box {
+    background-color: #2e2e4e;
+    color: #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.profile-option-box:hover {
+    background-color: #f8f8f8;
+}
+
+body.dark-mode .profile-option-box:hover {
+    background-color: #4a4a6e;
+}
+
+.profile-option-box + .profile-option-box {
+    margin-top: 16px;
+}
+
+#logout-button {
+    background-color: #fceeee;
+    color: #c0392b;
+    border: 1px solid #f5c6cb;
+}
+#logout-button:hover {
+    background-color: #f8d7da;
+}
+body.dark-mode #logout-button {
+    background-color: #5e2e3e;
+    color: #ff6b6b;
+    border-color: #8c4e5e;
+}
+body.dark-mode #logout-button:hover {
+    background-color: #7e3e4e;
+}
+
+/* New Change Username Screen */
+#change-username-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff; /* White page */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 90; /* High z-index */
+}
+
+body.dark-mode #change-username-screen {
+    background-color: #2e2e4e;
+}
+
+#change-username-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#back-from-username-change {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+
+.change-username-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 80vw; /* 8 part of 8:1 */
+    max-width: 400px;
+    height: calc(10vw + 10px); /* 1 part of 8:1 + extra padding */
+    max-height: 60px; /* (400/8) + 10px */
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    transition: background-color 0.5s ease;
+}
+
+body.dark-mode .change-username-container {
+    background-color: #3e3e5e;
+}
+
+#change-username-input {
+    flex-grow: 1;
+    height: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    padding: 0 60px 0 20px; /* Increased right padding for the icon */
+    color: #2c3e50;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #change-username-input {
+    color: #e0e0e0;
+}
+
+#change-username-input::placeholder {
+    color: #95a5a6;
+    opacity: 0.8;
+}
+
+body.dark-mode #change-username-input::placeholder {
+    color: #a0a0a0;
+}
+
+#change-username-input:focus {
+    border-bottom-color: #3498db;
+}
+
+body.dark-mode #change-username-input:focus {
+    border-bottom-color: #7ed6df;
+}
+
+#username-validation-icon {
+    position: absolute; /* Position relative to the container */
+    right: 20px; /* Position on the right side */
+    top: 50%;
+    transform: translateY(-50%) scale(0.5); /* Center vertically and hide initially */
+    font-size: clamp(1.5rem, 5vw, 1.8rem);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#username-validation-icon.visible {
+    opacity: 1;
+    transform: translateY(-50%) scale(1); /* Keep vertical centering when visible */
+    pointer-events: auto;
+}
+
+#username-validation-icon.invalid {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+#username-validation-icon.valid::before {
+    content: '✅';
+}
+
+#username-validation-icon.invalid::before {
+    content: '❌';
+}
+
+/* New Telegram Bot Screen */
+#telegram-bot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f7f6;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 85; /* Above profile screen */
+    padding: 24px;
+}
+
+body.dark-mode #telegram-bot-screen {
+    background-color: #1a1a2e;
+}
+
+#telegram-bot-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#telegram-bot-screen .profile-header {
+    align-items: center;
+    gap: 16px; /* Space between back arrow and title */
+}
+
+#telegram-bot-screen h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 5vw, 1.6rem);
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+body.dark-mode #telegram-bot-screen h2 {
+    color: #e0e0e0;
+}
+
+#telegram-bot-screen main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    width: 100%;
+}
+
+#check-messages-button {
+    margin-bottom: 24px;
+}
+
+#check-messages-button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    color: #7f8c8d;
+    border-color: #bdc3c7;
+}
+
+body.dark-mode #check-messages-button:disabled {
+    background-color: #4a4a6e;
+    color: #a0a0a0;
+    border-color: #5d5d81;
+}
+
+#telegram-log {
+    width: 100%;
+    flex-grow: 1;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-size: 0.85rem;
+    color: #34495e;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.dark-mode #telegram-log {
+    background-color: #2e2e4e;
+    border-color: #5d5d81;
+    color: #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#telegram-log p {
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #ecf0f1;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+body.dark-mode #telegram-log p {
+    border-bottom-color: #4a4a6e;
+}
+
+#telegram-log p:first-child {
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+body.dark-mode #telegram-log p:first-child {
+    color: #a0a0a0;
+}
+
+#telegram-log p:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* Search Screen Styles */
+#search-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* White background */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 70; /* Was 75, now it's the main screen */
+}
+
+body.dark-mode #search-screen {
+    background-color: #2e2e4e;
+}
+
+#search-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#search-screen .search-header {
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    width: 100%;
+    max-width: 500px;
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    padding: 2px 16px; /* Vertical padding is smaller to let input define height */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    position: relative; /* For positioning the icon */
+    transition: background-color 0.5s ease;
+}
+
+body.dark-mode .search-box {
+    background-color: #3e3e5e;
+}
+
+#search-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    padding: 14px 40px 14px 0; /* This padding gives the input its height and space for the icon */
+    color: #2c3e50;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #search-input {
+    color: #e0e0e0;
+}
+
+#search-input::placeholder {
+    color: #888;
+}
+
+body.dark-mode #search-input::placeholder {
+    color: #a0a0a0;
+}
+
+#search-input-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, filter 0.5s ease;
+}
+
+body.dark-mode #search-input-icon {
+    filter: invert(1);
+}
+
+#search-input-icon.visible {
+    opacity: 0.6;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+#search-input-icon:hover {
+    opacity: 1;
+}
+
+#search-screen main {
+    flex-grow: 1;
+    padding: 24px;
+    padding-top: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Add some space between the boxes */
+    overflow-y: auto; /* Allow scrolling */
+}
+
+/* Newly Uploaded Apps Section */
+#newly-uploaded-apps-section {
+    width: 100%;
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background-color 0.5s ease;
+}
+
+body.dark-mode #newly-uploaded-apps-section {
+    background-color: #3e3e5e;
+}
+
+.section-title {
+    margin: 0;
+    text-align: center;
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    font-weight: 600;
+    color: #2c3e50;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode .section-title {
+    color: #e0e0e0;
+}
+
+#newly-uploaded-grid {
+    display: flex;
+    flex-direction: column; /* Stack apps vertically on mobile */
+    gap: 12px;
+}
+
+/* App Card - The "8:4 rectangular box" (2:1 aspect ratio) */
+.app-card {
+    width: 100%; /* Take full width of its container */
+    aspect-ratio: 2 / 1; /* 8:4 ratio simplified to 2:1 */
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Stack main content and status */
+    justify-content: space-between; /* Push status to bottom */
+    align-items: flex-start; /* Align contents to the start horizontally */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Increased shadow for more depth */
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    position: relative; /* For absolute positioning if needed */
+    cursor: pointer; /* Indicate it's clickable */
+}
+
+body.dark-mode .app-card {
+    background-color: #2e2e4e;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Increased shadow for dark mode */
+}
+
+.app-main-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1; /* Allows it to take available space */
+    position: relative;
+}
+
+.app-icon-placeholder {
+    min-width: 64px; /* "2:2 rectangular box" */
+    height: 64px;
+    background-color: #ecf0f1; /* Placeholder background */
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+    flex-shrink: 0; /* Prevent shrinking */
+    transition: background-color 0.5s ease;
+    overflow: hidden; /* Ensure image fits */
+}
+
+body.dark-mode .app-icon-placeholder {
+    background-color: #4a4a6e;
+}
+
+.app-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the placeholder area */
+    border-radius: 8px; /* Match placeholder border-radius */
+}
+
+.app-name {
+    margin: 0;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: left; /* Aligned left now */
+    flex-grow: 1; /* Take up remaining horizontal space */
+    transition: color 0.5s ease;
+}
+
+body.dark-mode .app-name {
+    color: #e0e0e0;
+}
+
+.app-status {
+    width: 100%;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    text-align: right; /* Position at the bottom right */
+    margin: 0; /* Remove default paragraph margin */
+    transition: color 0.5s ease;
+}
+
+body.dark-mode .app-status {
+    color: #a0a0a0;
+}
+
+#search-content-box {
+    width: 100%;
+    flex: 4; /* This corresponds to the 8:4 ratio */
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background-color 0.5s ease;
+}
+
+body.dark-mode #search-content-box {
+    background-color: #3e3e5e;
+}
+
+#search-results-container {
+    /* This section is no longer used for displaying results directly on search-screen */
+    display: none; 
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+/* Updated Search Result Item - Now on search-results-screen */
+.search-result-item {
+    display: flex;
+    align-items: center; /* Vertically center content */
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px; /* Consistent padding */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer; /* Indicate clickable */
+    width: 100%; /* Ensure it takes full width */
+    min-height: 80px; /* Provides enough height for the 1:1 icon and content */
+    box-sizing: border-box; /* Include padding in width/height */
+    gap: 16px; /* Space between icon, divider, and text */
+}
+
+body.dark-mode .search-result-item {
+    background-color: #2e2e4e;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.search-result-item .app-icon-placeholder {
+    /* Reuse existing app-icon-placeholder for 1:1 image */
+    width: 64px; /* Fixed size for the icon */
+    height: 64px;
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.vertical-divider {
+    width: 2px; /* Thickness of the line */
+    background-color: #e0e0e0; /* Light gray line */
+    height: 80%; /* Height relative to parent, roughly matching icon height */
+    border-radius: 1px; /* Rounded ends for the line */
+    transition: background-color 0.5s ease;
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+body.dark-mode .vertical-divider {
+    background-color: #5d5d81; /* Dark mode line color */
+}
+
+.search-result-text-content { /* New class for app name container */
+    flex-grow: 1; /* Take up remaining horizontal space */
+    display: flex;
+    align-items: center; /* Vertically center text if it wraps */
+}
+
+.search-result-text-content h4 {
+    margin: 0;
+    font-size: clamp(1.1rem, 4.5vw, 1.3rem); /* Make app name a bit larger */
+    color: #2c3e50;
+    word-break: break-word; /* Ensure long names wrap */
+    transition: color 0.5s ease;
+}
+
+body.dark-mode .search-result-text-content h4 {
+    color: #e0e0e0;
+}
+
+.no-results-message {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding-top: 20px;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode .no-results-message {
+    color: #a0a0a0;
+}
+
+#top-left-square {
+    width: 30%;
+    aspect-ratio: 1;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.dark-mode #top-left-square {
+    background-color: #2e2e4e;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+#search-content-box-2 {
+    width: 100%;
+    flex: 5; /* This corresponds to the 8:5 ratio */
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background-color 0.5s ease;
+}
+
+body.dark-mode #search-content-box-2 {
+    background-color: #3e3e5e;
+}
+
+.trending-title {
+    margin: 0;
+    text-align: center;
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    font-weight: 600;
+    color: #2c3e50;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode .trending-title {
+    color: #e0e0e0;
+}
+
+.trending-grid {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trending-item {
+    display: flex;
+    gap: 12px;
+    flex: 1; /* Make items share the vertical space */
+    cursor: pointer; /* Indicate it's clickable */
+}
+
+.trending-box-1x1 {
+    width: 20%;
+    aspect-ratio: 1 / 1;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    overflow: hidden; /* Ensure image fits */
+    display: flex; /* For centering content if image not available */
+    justify-content: center;
+    align-items: center;
+}
+
+body.dark-mode .trending-box-1x1 {
+    background-color: #2e2e4e;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.trending-box-1x1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px; /* Match parent border-radius */
+}
+
+.trending-app-name-box { /* Renamed from trending-box-5x1 for clarity */
+    flex-grow: 1; /* This will fill the remaining width */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    display: flex; /* To center the app name */
+    align-items: center;
+    padding: 0 16px; /* Add some horizontal padding */
+}
+
+body.dark-mode .trending-app-name-box {
+    background-color: #2e2e4e;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.trending-app-name-box h4 {
+    margin: 0;
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    font-weight: 600;
+    color: #2c3e50;
+    transition: color 0.5s ease;
+    word-break: break-word; /* Ensure long names wrap */
+    text-align: left;
+}
+
+body.dark-mode .trending-app-name-box h4 {
+    color: #e0e0e0;
+}
+
+#search-screen footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 16px 24px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    border-top: 1px solid #eaeaea;
+    transition: background-color 0.5s ease, border-top-color 0.5s ease;
+}
+
+body.dark-mode #search-screen footer {
+    background-color: #2e2e4e;
+    border-top-color: #5d5d81;
+}
+
+/* New Search Results Screen */
+#search-results-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* White page */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 75; /* Above search screen */
+    padding: 24px;
+}
+
+body.dark-mode #search-results-screen {
+    background-color: #2e2e4e;
+}
+
+#search-results-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#search-results-screen .profile-header h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 5vw, 1.6rem);
+    color: #2c3e50;
+    font-weight: 600;
+    margin-left: 16px;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #search-results-screen .profile-header h2 {
+    color: #e0e0e0;
+}
+
+#search-results-screen main {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-top: 16px;
+}
+
+#final-search-results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Login Slide Panel */
+#login-slide-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 50vh; /* Set a max height */
+    background-color: #ffffff;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.1);
+    z-index: 51; /* Above welcome screen */
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.5s ease, box-shadow 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align content to the bottom */
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+body.dark-mode #login-slide-panel {
+    background-color: #2e2e4e;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.4);
+}
+
+#login-slide-panel.visible {
+    transform: translateY(0);
+}
+
+#login-accounts-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+    overflow-y: auto; /* Allow scrolling if many accounts */
+    padding: 8px; /* Some padding for the scrollbar */
+}
+
+.account-box {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    font-size: clamp(1.1rem, 4vw, 1.2rem);
+    font-weight: 600;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.5s ease, border-color 0.5s ease;
+    text-align: center;
+}
+
+body.dark-mode .account-box {
+    background-color: #3e3e5e;
+    border-color: #5d5d81;
+    color: #e0e0e0;
+}
+
+.account-box:hover {
+    background-color: #e9ecef;
+}
+
+body.dark-mode .account-box:hover {
+    background-color: #4a4a6e;
+}
+
+#find-account-link {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    color: #7f8c8d;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 10px;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #find-account-link {
+    color: #a0a0a0;
+}
+
+/* Login Confirm Popup */
+#login-confirm-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 90;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s, background-color 0.5s ease;
+}
+
+body.dark-mode #login-confirm-popup {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#login-confirm-popup.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.dark-mode .popup-content {
+    background-color: #2e2e4e;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#login-confirm-popup.visible .popup-content {
+    transform: scale(1);
+}
+
+#popup-title {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: clamp(1.2rem, 5vw, 1.4rem);
+    color: #2c3e50;
+    word-break: break-word;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #popup-title {
+    color: #e0e0e0;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.popup-button {
+    flex-grow: 1;
+    padding: 12px 20px;
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    font-weight: 600;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s, border-color 0.5s ease;
+}
+
+body.dark-mode .popup-button {
+    border-color: #5d5d81;
+    color: #e0e0e0;
+}
+
+.popup-button.primary {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+body.dark-mode .popup-button.primary {
+    background-color: #7ed6df;
+    color: #1a1a2e;
+    border-color: #7ed6df;
+}
+
+.popup-button:hover {
+    background-color: #f1f1f1;
+}
+
+body.dark-mode .popup-button:hover {
+    background-color: #4a4a6e;
+}
+
+.popup-button.primary:hover {
+    background-color: #2980b9;
+}
+
+body.dark-mode .popup-button.primary:hover {
+    background-color: #6ed0cf;
+}
+
+/* New Manual Login Screen */
+#manual-login-screen, #account-error-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f7f6;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 56; /* Above signup, below nickname */
+}
+
+body.dark-mode #manual-login-screen, body.dark-mode #account-error-screen {
+    background-color: #1a1a2e;
+}
+
+#manual-login-screen.visible, #account-error-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#manual-login-screen h1 {
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+    color: #2c3e50;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+body.dark-mode #manual-login-screen h1 {
+    color: #e0e0e0;
+}
+
+#manual-login-button {
+    margin-top: 20px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s 0.4s;
+}
+
+#manual-login-button.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Loading Spinner Overlay */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 110; /* On top of everything */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s, background-color 0.5s ease;
+}
+
+body.dark-mode #loading-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#loading-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 8px solid #3498db;
+    border-color: #3498db transparent #3498db transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+body.dark-mode .spinner {
+    border-color: #7ed6df transparent #7ed6df transparent;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.blurred-background {
+    filter: blur(5px);
+    transition: filter 0.3s ease-out;
+}
+
+/* Account Error Screen */
+#account-error-screen {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 40px;
+    z-index: 95; /* High z-index */
+}
+
+#account-error-screen h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+body.dark-mode #account-error-screen h1 {
+    color: #e0e0e0;
+}
+
+#account-error-screen p {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    color: #34495e;
+    margin-bottom: 32px;
+}
+
+body.dark-mode #account-error-screen p {
+    color: #a0a0a0;
+}
+
+#account-error-screen #try-again-link {
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    color: #3498db;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 12px 24px;
+    border-radius: 50px; /* Pill shape */
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.2s, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.dark-mode #account-error-screen #try-again-link {
+    background-color: #2e2e4e;
+    border-color: #5d5d81;
+    color: #7ed6df;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#account-error-screen #try-again-link:hover {
+    background-color: #f8f8f8;
+}
+
+body.dark-mode #account-error-screen #try-again-link:hover {
+    background-color: #4a4a6e;
+}
+
+/* Banned Screen */
+#banned-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #e74c3c; /* Red background */
+    color: #ffffff; /* White text */
+    z-index: 200; /* Very high to cover everything */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s;
+}
+
+#banned-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+#banned-screen h1 {
+    font-size: clamp(3rem, 12vw, 5rem);
+    margin: 0 0 20px 0;
+    font-weight: 700;
+}
+
+#banned-screen p {
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    line-height: 1.5;
+    max-width: 80%;
+}
+
+/* Click Animation */
+@keyframes click-feedback {
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.clicked {
+  animation: click-feedback 0.4s ease-in-out;
+}
+
+/* New App Detail Screen Styles */
+#app-detail-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* White page */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in, visibility 0s 0.7s, background-color 0.5s ease;
+    z-index: 80; /* Above search results and profile */
+    padding: 24px;
+}
+
+body.dark-mode #app-detail-screen {
+    background-color: #2e2e4e;
+}
+
+#app-detail-screen.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s ease-in;
+}
+
+.app-detail-header {
+    display: flex;
+    flex-direction: column; /* Stack back arrow and app info */
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 24px; /* Space below header */
+}
+
+#back-from-app-detail {
+    margin-bottom: 24px; /* Space between back arrow and app info */
+}
+
+.app-info-section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative; /* For positioning the get button */
+}
+
+.app-detail-icon-circle {
+    width: 80px; /* Equivalent to 2:2 box */
+    height: 80px;
+    border-radius: 50%; /* Circle shape */
+    background-color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Crop image to circle */
+    margin-right: 16px;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.5s ease;
+}
+
+body.dark-mode .app-detail-icon-circle {
+    background-color: #4a4a6e;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.app-detail-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.app-detail-text {
+    flex-grow: 1; /* Take remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#app-detail-name {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+    color: #2c3e50;
+    font-weight: 700;
+    margin: 0;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #app-detail-name {
+    color: #e0e0e0;
+}
+
+#app-detail-author {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    color: #7f8c8d;
+    margin: 4px 0 0 0;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #app-detail-author {
+    color: #a0a0a0;
+}
+
+.get-button {
+    position: absolute;
+    right: 0; /* Position to the right */
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Pill shape */
+    padding: 10px 20px;
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden; /* Hide overflowing progress bar */
+    transition: background-color 0.2s, transform 0.1s;
+    min-width: 80px; /* Ensure a decent width */
+    height: 40px; /* Fixed height for consistent look */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* For progress div */
+}
+
+body.dark-mode .get-button {
+    background-color: #7ed6df;
+    color: #1a1a2e;
+}
+
+.get-button:hover {
+    background-color: #2980b9;
+}
+
+body.dark-mode .get-button:hover {
+    background-color: #6ed0cf;
+}
+
+.get-button-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%; /* Controls fill progress */
+    background-color: rgba(255, 255, 255, 0.3); /* Lighter blue or white for progress */
+    transition: width 0.3s ease-out;
+    z-index: 1; /* Below text */
+}
+
+body.dark-mode .get-button-progress {
+    background-color: rgba(0, 0, 0, 0.2); /* Dark mode progress color */
+}
+
+.get-button span { /* For the text inside the button */
+    position: relative;
+    z-index: 2; /* Above progress bar */
+    transition: opacity 0.3s ease;
+}
+
+.get-button.downloading span {
+    opacity: 0; /* Hide text during download */
+}
+
+#app-detail-screen main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto; /* Allow main content to scroll if needed */
+}
+
+.app-detail-box {
+    width: 100%;
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: background-color 0.5s ease;
+}
+
+body.dark-mode .app-detail-box {
+    background-color: #3e3e5e;
+}
+
+#app-description-box {
+    min-height: 80px; /* Approx 8:2 ratio given padding, adjust as needed */
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    color: #34495e;
+    line-height: 1.5;
+    transition: color 0.5s ease;
+}
+
+body.dark-mode #app-description-box {
+    color: #e0e0e0;
+}
+
+#app-screenshots-container {
+    flex-grow: 1; /* Take up remaining space */
+    aspect-ratio: 8 / 6; /* Approx 8:6 ratio */
+    display: flex;
+    gap: 12px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 10px; /* Space for scrollbar */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+#app-screenshots-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+#app-screenshots-container::-webkit-scrollbar-thumb {
+    background-color: #bdc3c7;
+    border-radius: 10px;
+}
+
+body.dark-mode #app-screenshots-container::-webkit-scrollbar-thumb {
+    background-color: #5d5d81;
+}
+
+.screenshot-box {
+    flex-shrink: 0; /* Prevent shrinking when scrolling */
+    width: 200px; /* Example fixed width, roughly 6 parts */
+    aspect-ratio: 6 / 2; /* 6:2 aspect ratio */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    overflow: hidden; /* Ensure image fits */
+    display: flex; /* For centering content if image not available */
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.dark-mode .screenshot-box {
+    background-color: #2e2e4e;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.screenshot-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
